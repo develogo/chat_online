@@ -5,8 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 void main() async {
 
   runApp(MyApp());
-  QuerySnapshot snapshot = await Firestore.instance.collection("usuarios").getDocuments();
-  print(snapshot.documents);
+  DocumentSnapshot snapshot = await Firestore.instance.collection("usuarios").document("EgoBrain").get();
+  print(snapshot.data);
 }
 
 class MyApp extends StatelessWidget {
