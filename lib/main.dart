@@ -44,7 +44,14 @@ _handleSububmitted(String text) async {
 }
 
 void _sendMessage({String text, String imgUrl}){
-  Firestore.instance.collection("messages")
+  Firestore.instance.collection("messages").add(
+    {
+      "text" : text,
+      "image" : imgUrl,
+      "senderName" : googleSignIn.currentUser.displayName,
+      "senderPhotoUrl" : googleSignIn.currentUser.photoUrl
+    }
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -117,6 +124,13 @@ class _TextComposerState extends State<TextComposer> {
 
   final _textController = TextEditingController();
 
+  void _reset(){
+    _textController.clear();
+    setState(() {
+      _isComposing = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return IconTheme(
@@ -147,6 +161,7 @@ class _TextComposerState extends State<TextComposer> {
                 },
                 onSubmitted: (text){
                   _handleSububmitted(text);
+                  _reset();
                 },
               ),
             ),
@@ -157,12 +172,14 @@ class _TextComposerState extends State<TextComposer> {
                   child: Text("Enviar"),
                   onPressed: _isComposing ? () {
                     _handleSububmitted(_textController.text);
+                    _reset();
                   } : null,
                 )
                     : IconButton(
                   icon: Icon(Icons.send),
                   onPressed: _isComposing ? () {
                     _handleSububmitted(_textController.text);
+                    _reset();
                   } : null,
                 ))
           ],
