@@ -84,7 +84,7 @@ class _ChatScreenState extends State<ChatScreen> {
       top: false,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Chat APP"),
+          title: Text("My Saves"),
           centerTitle: true,
           elevation:
           Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
